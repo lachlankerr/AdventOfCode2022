@@ -22,23 +22,11 @@ scores = {
     'C X': 'W', #scissors vs rock       1 + 6 = 7
     'C Y': 'L', #scissors vs paper      2 + 0 = 2
     'C Z': 'D', #scissors vs scissors   3 + 3 = 6
-    
-    #'A X': 4, #rock vs rock           1 + 3 = 4
-    #'A Y': 8, #rock vs paper          2 + 6 = 8
-    #'A Z': 3, #rock vs scissors       3 + 0 = 3
-
-    #'B X': 1, #paper vs rock          1 + 0 = 1
-    #'B Y': 5, #paper vs paper         2 + 3 = 5
-    #'B Z': 9, #paper vs scissors      3 + 6 = 9
-
-    #'C X': 7, #scissors vs rock       1 + 6 = 7
-    #'C Y': 2, #scissors vs paper      2 + 0 = 2
-    #'C Z': 6, #scissors vs scissors   3 + 3 = 6
 }
 
 def get_rounds():
     '''
-        
+        Splits input into each round
     '''
 
     rounds = []
@@ -48,23 +36,43 @@ def get_rounds():
 
 def part_one():
     '''
-        
+        Gets total score when following the strategy guide
     '''
 
     total_score = 0
     for round in get_rounds():
         moves = round.split(' ')
         total_score += scores[scores[round]] + scores[moves[1]]
-        #total_score += scores[round] 
 
     return total_score
 
 def part_two():
     '''
-        
+        Gets total score when following the proper strategy guide
     '''
-    
-    return ''
+
+    scores['X'] = 'L'
+    scores['Y'] = 'D'
+    scores['Z'] = 'W'
+
+    scores['A X'] = 'C' # lose against rock = scissors
+    scores['A Y'] = 'A' # draw against rock = rock
+    scores['A Z'] = 'B' # win against rock = paper
+
+    scores['B X'] = 'A' # lose against paper = rock
+    scores['B Y'] = 'B' # draw against paper = paper
+    scores['B Z'] = 'C' # win against paper = scissors
+
+    scores['C X'] = 'B' # lose against scissors = paper
+    scores['C Y'] = 'C' # draw against scissors = scissors
+    scores['C Z'] = 'A' # win against scissors = rock
+
+    total_score = 0
+    for round in get_rounds():
+        moves = round.split(' ')
+        total_score += scores[scores[round]] + scores[scores[moves[1]]]
+
+    return total_score
     
 
 if __name__ == "__main__":
