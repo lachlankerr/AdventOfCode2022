@@ -1,5 +1,5 @@
 # AdventOfCode2020
-My attempt at the Advent of Code 2022 in python
+My attempt at the Advent of Code 2022, in Python
 
 Stats so far:
 ```
