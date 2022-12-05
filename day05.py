@@ -28,7 +28,8 @@ def get_stacks_and_moves():
 
 def part_one():
     '''
-    
+        Moves crates according to CrateMover 9000 rules, 1 crate at a time
+        Returns the top crate of each stack
     '''
 
     stacks, moves = get_stacks_and_moves()
@@ -48,9 +49,25 @@ def part_one():
 
 def part_two():
     '''
-    
+        Moves crates according to CrateMover 9001 rules, multiple crates at once
+        Returns the top crate of each stack
     '''
 
+    stacks, moves = get_stacks_and_moves()
+
+    for move in moves:
+        result = list(map(int, re.findall('\d+', move)))
+        n = result[0]
+        from_stack = result[1] - 1
+        to_stack = result[2] - 1
+        crane_stack = []
+        for i in range(n):
+            crane_stack.append(stacks[from_stack].pop())
+        stacks[to_stack].extend(reversed(crane_stack))
+
+    top_stacks = ''.join([stack.pop() for stack in stacks])
+
+    return top_stacks
 
 if __name__ == "__main__":
     print(f"Day 5 part 1: {part_one()}")
